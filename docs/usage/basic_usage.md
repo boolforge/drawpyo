@@ -17,11 +17,12 @@ file.file_name = "Test Generated Edges.drawio"
 ### Write a file
 
 Files can be written simply with the write() function. This function takes a few parameters to make it more flexible:
-| Parameter | Setting |
-| - | - |
-| `file_path` | This will overwrite the previously set file_path. |
+
+| Parameter   | Setting                                                                                                                                  |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `file_path` | This will overwrite the previously set file_path.                                                                                        |
 | `file_name` | This will overwrite the previously set file_name. Like file_path, useful in creating multiple copies of a diagram with slight variations |
-| `overwrite` | This boolean parameter controls whether an existing diagram should be overwritten or not. |
+| `overwrite` | This boolean parameter controls whether an existing diagram should be overwritten or not.                                                |
 
 ## Pages
 

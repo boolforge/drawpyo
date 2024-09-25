@@ -84,15 +84,15 @@ Edge coloring can be set with a stroke and fill color, though only the stroke ap
 | ------------- | -------------------------------------------------------------------------------------------------- |
 | `opacity`     | The opacity of the edge (0-100)                                                                    |
 | `strokeColor` | The color of the edge or the stroke around the edge shape ('default', 'none', or a hex color code) |
-| `strokeWidth` | The width of the edge or the stroke around the edge shape (1-999) |
+| `strokeWidth` | The width of the edge or the stroke around the edge shape (1-999)                                  |
 | `fillColor`   | The fill color of the edge shape ('default', 'none', or a hex color code)                          |
 
 ### Effects
 
 Draw.io has four effects that can be set on an edge. They're all boolean valuable that can be enabled.
 
-| Paramater        | Rendered                                                                    |
-| ---------------- | --------------------------------------------------------------------------- |
+| Paramater        | Rendered                                                                 |
+| ---------------- | ------------------------------------------------------------------------ |
 | default (None)   | ![effects_default](../img/edge_styles/effects_default.png)               |
 | `rounded`        | ![effects_rounded](../img/edge_styles/effects_rounded.png)               |
 | `shadow`         | ![effects_shadow](../img/edge_styles/effects_shadow.png)                 |
@@ -112,8 +112,8 @@ By default, when an edge crosses another edge they'll just be rendered as a cros
 
 The different rendered jump styles are:
 
-| Parameter      | Rendered                                                          |
-| -------------- | ----------------------------------------------------------------- |
+| Parameter      | Rendered                                                       |
+| -------------- | -------------------------------------------------------------- |
 | default (None) | ![line_jump_default](../img/edge_styles/line_jump_default.png) |
 | `arc`          | ![line_jump_arc](../img/edge_styles/line_jump_arc.png)         |
 | `gap`          | ![line_jump_gap](../img/edge_styles/line_jump_gap.png)         |
@@ -124,8 +124,8 @@ The different rendered jump styles are:
 
 The `waypoint` parameter controls how the line is routed from the source to the target. For example, a straight line is just point to point. A curved line tries to maintain gentle curves and perpendicularity to the source and target objects. Options are:
 
-| Parameter            | Rendered                                                                                |
-| -------------------- | --------------------------------------------------------------------------------------- |
+| Parameter            | Rendered                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------ |
 | default (None)       | ![waypoints_default](../img/edge_styles/waypoints_default.png)                       |
 | `straight`           | ![waypoints_straight](../img/edge_styles/waypoints_straight.png)                     |
 | `orthogonal`         | ![waypoints_orthogonal](../img/edge_styles/waypoints_orthogonal.png)                 |
@@ -140,8 +140,8 @@ The `waypoint` parameter controls how the line is routed from the source to the 
 
 The `connection` parameter is abstractly named but it controls what type of edge this is. Most edges are lines but other types are available.
 
-| Parameter      | Rendered                                                                        |
-| -------------- | ------------------------------------------------------------------------------- |
+| Parameter      | Rendered                                                                     |
+| -------------- | ---------------------------------------------------------------------------- |
 | default (None) | ![connections_default](../img/edge_styles/connections_default.png)           |
 | `line`         | ![connections_line](../img/edge_styles/connections_line.png)                 |
 | `link`         | ![connections_link](../img/edge_styles/connections_link.png)                 |
@@ -152,8 +152,8 @@ The `connection` parameter is abstractly named but it controls what type of edge
 
 The `pattern` parameter controls how the line stroke is rendered. Options are:
 
-| Parameter       | Rendered                                                                    |
-| --------------- | --------------------------------------------------------------------------- |
+| Parameter       | Rendered                                                                 |
+| --------------- | ------------------------------------------------------------------------ |
 | default (None)  | ![patterns_default](../img/edge_styles/patterns_default.png)             |
 | `solid`         | ![patterns_solid](../img/edge_styles/patterns_solid.png)                 |
 | `dashed_small`  | ![patterns_dashed_small](../img/edge_styles/patterns_dashed_small.png)   |
@@ -167,32 +167,35 @@ The `pattern` parameter controls how the line stroke is rendered. Options are:
 
 The `line_end_target` and `line_end_source` parameter sets whatever is rendered where the edge meets the objects. There are secondary boolean parameters for the fill of the ends (`endFill_target` and `endFill_source`) but not all ends can be filled.
 
+To remove line ends and just have a bare line set the parameter to the text string `'none'`.
+
 The line end size can also be adjusted with `endSize` and `startSize` parameters, both set in points.
 
-| Parameter      | Rendered Unfilled                                                         | Rendered Filled                                                                       |
-| -------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| default (None) | ![line_end_default](../img/edge_styles/line_end_default.png)           | *na*                                                                                  |
+| Parameter      | Rendered Unfilled                                                      | Rendered Filled                                                                    |
+| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| default (None) | ![line_end_default](../img/edge_styles/line_end_default.png)           | *na*                                                                               |
+| `none`         | ![line_end_none](../img/edge_styles/line_end_none.png)                 | *na*                                                                               |
 | `classic`      | ![line_end_classic](../img/edge_styles/line_end_classic.png)           | ![line_end_classic_filled](../img/edge_styles/line_end_classic_filled.png)         |
 | `classicThin`  | ![line_end_classicThin](../img/edge_styles/line_end_classicThin.png)   | ![line_end_classicThin_filled](../img/edge_styles/line_end_classicThin_filled.png) |
-| `open`         | ![line_end_open](../img/edge_styles/line_end_open.png)                 | *na*                                                                                  |
-| `openThin`     | ![line_end_openThin](../img/edge_styles/line_end_openThin.png)         | *na*                                                                                  |
-| `openAsync`    | ![line_end_openAsync](../img/edge_styles/line_end_openAsync.png)       | *na*                                                                                  |
+| `open`         | ![line_end_open](../img/edge_styles/line_end_open.png)                 | *na*                                                                               |
+| `openThin`     | ![line_end_openThin](../img/edge_styles/line_end_openThin.png)         | *na*                                                                               |
+| `openAsync`    | ![line_end_openAsync](../img/edge_styles/line_end_openAsync.png)       | *na*                                                                               |
 | `block`        | ![line_end_block](../img/edge_styles/line_end_block.png)               | ![line_end_block_filled](../img/edge_styles/line_end_block_filled.png)             |
 | `blockThin`    | ![line_end_blockThin](../img/edge_styles/line_end_blockThin.png)       | ![line_end_blockThin_filled](../img/edge_styles/line_end_blockThin_filled.png)     |
 | `async`        | ![line_end_async](../img/edge_styles/line_end_async.png)               | ![line_end_async_filled](../img/edge_styles/line_end_async_filled.png)             |
 | `oval`         | ![line_end_oval](../img/edge_styles/line_end_oval.png)                 | ![line_end_oval_filled](../img/edge_styles/line_end_oval_filled.png)               |
 | `diamond`      | ![line_end_diamond](../img/edge_styles/line_end_diamond.png)           | ![line_end_diamond_filled](../img/edge_styles/line_end_diamond_filled.png)         |
 | `diamondThin`  | ![line_end_diamondThin](../img/edge_styles/line_end_diamondThin.png)   | ![line_end_diamondThin_filled](../img/edge_styles/line_end_diamondThin_filled.png) |
-| `dash`         | ![line_end_dash](../img/edge_styles/line_end_dash.png)                 | *na*                                                                                  |
-| `halfCircle`   | ![line_end_halfCircle](../img/edge_styles/line_end_halfCircle.png)     | *na*                                                                                  |
-| `cross`        | ![line_end_cross](../img/edge_styles/line_end_cross.png)               | *na*                                                                                  |
-| `circlePlus`   | ![line_end_circlePlus](../img/edge_styles/line_end_circlePlus.png)     | *na*                                                                                  |
-| `circle`       | ![line_end_circle](../img/edge_styles/line_end_circle.png)             | *na*                                                                                  |
-| `baseDash`     | ![line_end_baseDash](../img/edge_styles/line_end_baseDash.png)         | *na*                                                                                  |
-| `ERone`        | ![line_end_ERone](../img/edge_styles/line_end_ERone.png)               | *na*                                                                                  |
-| `ERmandOne`    | ![line_end_ERmandOne](../img/edge_styles/line_end_ERmandOne.png)       | *na*                                                                                  |
-| `ERmany`       | ![line_end_ERmany](../img/edge_styles/line_end_ERmany.png)             | *na*                                                                                  |
-| `ERoneToMany`  | ![line_end_ERoneToMany](../img/edge_styles/line_end_ERoneToMany.png)   | *na*                                                                                  |
-| `ERzeroToOne`  | ![line_end_ERzeroToOne](../img/edge_styles/line_end_ERzeroToOne.png)   | *na*                                                                                  |
-| `ERzeroToMany` | ![line_end_ERzeroToMany](../img/edge_styles/line_end_ERzeroToMany.png) | *na*                                                                                  |
+| `dash`         | ![line_end_dash](../img/edge_styles/line_end_dash.png)                 | *na*                                                                               |
+| `halfCircle`   | ![line_end_halfCircle](../img/edge_styles/line_end_halfCircle.png)     | *na*                                                                               |
+| `cross`        | ![line_end_cross](../img/edge_styles/line_end_cross.png)               | *na*                                                                               |
+| `circlePlus`   | ![line_end_circlePlus](../img/edge_styles/line_end_circlePlus.png)     | *na*                                                                               |
+| `circle`       | ![line_end_circle](../img/edge_styles/line_end_circle.png)             | *na*                                                                               |
+| `baseDash`     | ![line_end_baseDash](../img/edge_styles/line_end_baseDash.png)         | *na*                                                                               |
+| `ERone`        | ![line_end_ERone](../img/edge_styles/line_end_ERone.png)               | *na*                                                                               |
+| `ERmandOne`    | ![line_end_ERmandOne](../img/edge_styles/line_end_ERmandOne.png)       | *na*                                                                               |
+| `ERmany`       | ![line_end_ERmany](../img/edge_styles/line_end_ERmany.png)             | *na*                                                                               |
+| `ERoneToMany`  | ![line_end_ERoneToMany](../img/edge_styles/line_end_ERoneToMany.png)   | *na*                                                                               |
+| `ERzeroToOne`  | ![line_end_ERzeroToOne](../img/edge_styles/line_end_ERzeroToOne.png)   | *na*                                                                               |
+| `ERzeroToMany` | ![line_end_ERzeroToMany](../img/edge_styles/line_end_ERzeroToMany.png) | *na*                                                                               |
 | `doubleBlock`  | ![line_end_doubleBlock](../img/edge_styles/line_end_doubleBlock.png)   | ![line_end_doubleBlock_filled](../img/edge_styles/line_end_doubleBlock_filled.png) |
