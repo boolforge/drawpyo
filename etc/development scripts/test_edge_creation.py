@@ -65,7 +65,7 @@ obj = drawpyo.diagram.Object(width=100, height=60)
 
 origin = (10, 10)
 for waypoint in waypoints:
-    item_1 = drawpyo.diagram.Object(page=page, template_object=obj, value="wapyoints")
+    item_1 = drawpyo.diagram.Object(page=page, template_object=obj, value="waypoints")
     item_1.position = origin
     item_2 = drawpyo.diagram.Object(page=page, template_object=obj, value=waypoint)
     item_2.position = (origin[0] + h_spacing, origin[1] + v_spacing)
