@@ -25,6 +25,7 @@ nav:
     - Extended Objects: usage/extended_objects.md
     - Edges: usage/edges.md
     - Shape Libraries: usage/shape_libs.md
+    - Tags: usage/tags.md
   - Custom Diagram Types:
     - Tree Diagrams: diagram_types/tree_diagrams.md
   - API:
