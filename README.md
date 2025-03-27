@@ -1,124 +1,70 @@
-# drawpyo
+# Drawpyo Extensions - README
 
-Drawpyo is a Python library for programmatically generating Diagrams.net/Draw.io charts. It enables creating a diagram object, placing and styling objects, then writing the object to a file.
+Este proyecto extiende la biblioteca [drawpyo](https://github.com/MerrimanInd/drawpyo) para proporcionar soporte completo para el formato drawio, permitiendo leer, representar, modificar y escribir archivos drawio desde Python.
 
-# History/Justification
+## Características Principales
 
-I love Draw.io! Compared to expensive and heavy commercial options like Visio and Miro, Draw.io's free and lightweight app allows wider and more universal distribution of diagrams. Because the files are stored in plaintext they can be versioned alongside code in a repository as documentation. The XML-based file format makes these diagrams semi-portable, and could easily be ported to other applications if Draw.io ever failed you. For these reason, I think it's one of the best options for documentation diagrams.
+- **Lectura de archivos drawio**: Parseo completo de archivos drawio, incluyendo soporte para contenido comprimido en base64+deflate
+- **Representación visual**: Renderizado de diagramas en formatos SVG y HTML interactivo
+- **Modificación programática**: API para modificar diagramas existentes o crear nuevos desde cero
+- **Escritura de archivos drawio**: Conversión de objetos drawpyo a archivos drawio compatibles
 
-When I had a need to generate heirarchical tree diagrams of requirement structures I was surprised to find there wasn't even a single existing Python library for working with these files. I took the project home and spent a weekend building the initial functionality. I've been adding functionality, robustness, and documentation intermittently since.
+## Estructura del Proyecto
 
-# Full Documentation
+- **src/drawpyo/reader/**: Módulo para leer y parsear archivos drawio
+- **src/drawpyo/renderer/**: Módulo para renderizar diagramas en formatos visuales
+- **src/drawpyo/writer/**: Módulo para escribir diagramas a archivos drawio
+- **examples/**: Scripts de ejemplo que demuestran el uso de las extensiones
+- **docs/**: Documentación detallada sobre las extensiones
 
-Available here!
-
-https://merrimanind.github.io/drawpyo/
-
-# Basic Usage
-
-The basic mode of interacting with drawpyo is to manually create, style, and place objects just like you would using the Draw.io UI. There are a number of ways to style objects and you can write your own functionality for automatically handling style or placement.
-
-## Make a new file
-
-```python
-import drawpyo
-file = drawpyo.File()
-file.file_path = r"C:\drawpyo"
-file.file_name = "Test Generated Edges.drawio"
-# Add a page
-page = drawpyo.Page(file=file)
-```
-
-## Add an object
+## Ejemplo Rápido
 
 ```python
-item = drawpyo.diagram.Object(page=page, value="new object")
-item.position = (0, 0)
+from drawpyo.file import File
+from drawpyo.page import Page
+from drawpyo.diagram.objects import Object
+from drawpyo.diagram.edges import Edge
+from drawpyo.reader import DrawioReader
+from drawpyo.renderer import DiagramRenderer
+from drawpyo.writer import DrawioWriter
+
+# Leer un archivo drawio existente
+file = DrawioReader.read_file("ejemplo.drawio")
+
+# Modificar el diagrama
+page = file.pages[0]
+new_obj = Object(value="Nuevo Objeto")
+new_obj.position = (300, 200)
+new_obj.width = 120
+new_obj.height = 60
+new_obj.apply_style_string("shape=rectangle;fillColor=#d5e8d4;strokeColor=#82b366;")
+page.add_object(new_obj)
+
+# Guardar el diagrama modificado
+writer = DrawioWriter()
+writer.write_file(file, "modificado.drawio")
+
+# Renderizar el diagrama
+renderer = DiagramRenderer()
+renderer.save_page_as_svg(page, "diagrama.svg")
+renderer.save_page_as_html(page, "diagrama.html")
 ```
 
-## Create an object from the base style libraries available in the Draw.io UI
+## Documentación
 
-```python
-item_from_lib = drawpyo.diagram.object_from_library(
-    page=page,
-    library="general",
-    obj_name="process",
-    value="New Process",
-    )
-```
+Para una documentación completa, consulte [DOCUMENTATION.md](docs/DOCUMENTATION.md).
 
-## Style an object from a string
+## Limitaciones Actuales
 
-```python
-item_from_stylestr = drawpyo.diagram.Object(page=page)
-item_from_stylestr.apply_style_string("rounded=1;whiteSpace=wrap;html=1;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#000000;gradientColor=#FF33FF;strokeWidth=4;")
-```
+- No se soportan todas las formas personalizadas de drawio
+- No se soportan todas las opciones de formato de texto avanzado
+- No se soportan capas múltiples
+- No se soportan algunos efectos visuales avanzados
 
-## Write the file
+## Contribuciones
 
-```python
-file.write()
-```
+Las contribuciones son bienvenidas. Por favor, siéntase libre de abrir issues o pull requests para mejorar este proyecto.
 
-# Usage with a diagram type
+## Licencia
 
-There is also functionality available in drawpyo that extends what can be done in Draw.io's app! These diagram types allow for easy and automatic creation of specific diagrams.
-
-The only diagram type that's released is the tree diagram. Varying level of conceptual work has been started for:
-
-- Automatic class/object/inheritance diagrams of a python module
-
-- Flowcharts
-
-- Process diagrams
-
-## Working with TreeDiagrams
-
-Create a new tree diagram:
-
-```python
-from drawpyo.diagram_types import TreeDiagram, NodeObject
-
-tree = TreeDiagram(
-    file_path = path.join(path.expanduser('~'), "Test Drawpyo Charts"),
-    file_name = "Coffee Grinders.drawio",
-    direction = "down",
-    link_style = "orthogonal",
-    )
-```
-
-The direction property sets which way the leaf nodes grow from the root: up, down, left, or right. The link_style can be orthogonal, straight, or curved.
-
-Create some NodeObjects:
-
-```python
-# Top object
-grinders = NodeObject(tree=tree, value="Appliances for Grinding Coffee", base_style="rounded rectangle")
-
-# Main categories
-blade_grinders = NodeObject(tree=tree, value="Blade Grinders", tree_parent=grinders)
-burr_grinders = NodeObject(tree=tree, value="Burr Grinders", tree_parent=grinders)
-blunt_objects = NodeObject(tree=tree, value="Blunt Objects", tree_parent=grinders)
-```
-
-Note that the base_style was manually declared for the first object. But NodeObjects will default to "rounded rectangle" so it's not necessary for every one. Any NodeObject can be a parent, so you can keep adding objects down the tree:
-
-```python
-# Other
-elec_blade = NodeObject(tree=tree, value="Electric Blade Grinder", tree_parent=blade_grinders)
-mnp = NodeObject(tree=tree, value="Mortar and Pestle", tree_parent=blunt_objects)
-
-# Conical Burrs
-conical = NodeObject(tree=tree, value="Conical Burrs", tree_parent=burr_grinders)
-elec_conical = NodeObject(tree=tree, value="Electric", tree_parent=conical)
-manual_conical = NodeObject(tree=tree, value="Manual", tree_parent=conical)
-```
-
-> **Important Note:** TreeDiagrams do not currently support NodeObjects with multiple parents! It may not ever as this seriously complicates the auto layout process. However, you can add links between any two objects in the tree and render them in the diagram. They just may look ugly until you manually rearrange the diagram.
-
-Finally, before writing the diagram you'll want to run the magic penultimate step: auto layout.
-
-```python
-tree.auto_layout()
-tree.write()
-```
+Este proyecto se distribuye bajo la misma licencia que drawpyo original.
